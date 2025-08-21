@@ -51,7 +51,7 @@ spec:
         project: ${{ (parameters.repoUrl | parseRepoUrl)['project'] }}
         folder: "webinar-test"
         name: ${{ (parameters.repoUrl | parseRepoUrl).repo }}
-        repositoryId: ${{ steps.publish.output.repositoryId }}
+        repositoryId: ${{ steps.createRepoAndInitProject.output.repositoryId }}
         repositoryName: ${{ (parameters.repoUrl | parseRepoUrl)['repo'] }}
         yamlPath: ./azure-pipelines.yaml
   output:
