@@ -10,7 +10,6 @@ spec:
   parameters:
     - title: Go Project Details
       required:
-        - projectName
         - repoUrl
       properties:
         repoUrl:
