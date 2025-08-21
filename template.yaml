@@ -42,7 +42,7 @@ spec:
       name: Debug
       action: debug:log
       input:
-        message: "Repo ID: ${{ steps.publish.output.repositoryId }}"
+        message: "Repo ID: ${{ steps.createRepoAndInitProject.output.repositoryId }}"
     - id: createAzurePipeline
       name: Create Azure Pipeline
       action: azure:pipeline:create
