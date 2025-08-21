@@ -32,7 +32,7 @@ spec:
         url: ./skeleton
         targetPath: ./sub-directory
         values:
-          projectName: ${{ parameters.projectName }}
+          projectName: ${{ (parameters.repoUrl | parseRepoUrl).repo }}
     - id: createRepoAndInitProject
       name: Create Repo and Initialize Project
       action: publish:azure
@@ -43,12 +43,18 @@ spec:
         description: "Go project repo"
         gitAuthorName: Backstage Bot
         gitAuthorEmail: backstage-bot@zeiss.com
-    - id: debug
-      name: Debug
-      action: debug:log
+    - id: createAzurePipeline
+      name: Create Azure Pipeline
+      action: azure:pipeline:create
       input:
-        message: "Project ${{ parameters.projectName }} created successfully with repo ${{ steps.createRepoAndInitProject.output.remoteUrl }}"
+        organization: ${{ (parameters.repoUrl | parseRepoUrl)['organization'] }}
+        project: ${{ (parameters.repoUrl | parseRepoUrl)['project'] }}
+        folder: "webinar-test"
+        name: ${{ (parameters.repoUrl | parseRepoUrl).repo }}
+        repositoryId: ${{ steps.publish.output.repositoryId }}
+        repositoryName: ${{ (parameters.repoUrl | parseRepoUrl)['repo'] }}
+        yamlPath: ./azure-pipelines.yaml
   output:
     links:
       - title: Repository URL
-        url: ${{ steps.createRepoAndInitProject.output.remoteUrl }}
+        url: https://dev.azure.com/${{ (parameters.repoUrl | parseRepoUrl).organization }}/${{ (parameters.repoUrl | parseRepoUrl).project }}/_git/${{ (parameters.repoUrl | parseRepoUrl).repo }}
