@@ -1,0 +1,49 @@
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  name: go-project-template
+  title: Go Project
+  description: Create a new Go project with repo and Azure DevOps pipeline
+spec:
+  owner: user:default/um-e.habiba
+  type: service
+  parameters:
+    - title: Go Project Details
+      required:
+        - projectName
+        - repoUrl
+      properties:
+        repoUrl:
+          title: Repository Location
+          type: string
+          ui:field: RepoUrlPicker
+          ui:options:
+            allowedHosts:
+              - dev.azure.com
+        projectName:
+          title: Project Name
+          type: string
+          description: Name of the project
+  steps:
+    - id: fetch-skeleton
+      name: Fetch Skeleton
+      action: fetch:template
+      input:
+        url: ./skeleton
+        targetPath: ./sub-directory
+        values:
+          projectName: ${{ parameters.projectName }}
+    - id: createRepoAndInitProject
+      name: Create Repo and Initialize Project
+      action: publish:azure
+      input:
+        repoUrl: ${{ parameters.repoUrl }}
+        sourcePath: ./sub-directory
+        defaultBranch: main
+        description: "Go project repo"
+        gitAuthorName: Backstage Bot
+        gitAuthorEmail: backstage-bot@zeiss.com
+  output:
+    links:
+      - title: Repository URL
+        url: ${{ steps.createRepoAndInitProject.output.remoteUrl }}
