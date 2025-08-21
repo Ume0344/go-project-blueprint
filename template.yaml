@@ -43,6 +43,11 @@ spec:
         description: "Go project repo"
         gitAuthorName: Backstage Bot
         gitAuthorEmail: backstage-bot@zeiss.com
+    - id: debug
+      name: Debug
+      action: debug:log
+      input:
+        message: "Project ${{ parameters.projectName }} created successfully with repo ${{ steps.createRepoAndInitProject.output.remoteUrl }}"
   output:
     links:
       - title: Repository URL
