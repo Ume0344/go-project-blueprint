@@ -38,6 +38,11 @@ spec:
         description: "Go project repo"
         gitAuthorName: Backstage Bot
         gitAuthorEmail: backstage-bot@zeiss.com
+    - id: debug
+      name: Debug
+      action: debug:log
+      input:
+        message: "Repo ID: ${{ steps.publish.output.repositoryId }}"
     - id: createAzurePipeline
       name: Create Azure Pipeline
       action: azure:pipeline:create
