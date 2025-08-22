@@ -19,6 +19,26 @@ spec:
           ui:options:
             allowedHosts:
               - dev.azure.com
+        goVersion:
+          type: string
+          description: Go version
+          ui:help: Select the Go version to use for the project.
+        dockerRegistryServiceConnection:
+          title: Docker Registry Service Connection
+          type: string
+          description: The service connection for the Docker registry.
+        imageRepository:
+          title: Image Repository
+          type: string
+          description: The repository name for the Docker image.
+        containerRegistry:
+          title: Container Registry
+          type: string
+          description: The container registry URL.
+        imageTag:
+          title: Image Tag
+          type: string
+          description: The tag to use for the Docker image.
   steps:
     - id: fetch-skeleton
       name: Fetch Skeleton
@@ -54,6 +74,19 @@ spec:
         repositoryId: ${{ steps.createRepoAndInitProject.output.repositoryId }}
         repositoryName: ${{ (parameters.repoUrl | parseRepoUrl)['repo'] }}
         yamlPath: ./azure-pipelines.yaml
+        values:
+          goVersion: ${{ parameters.goVersion }}
+          dockerRegistryServiceConnection: ${{ parameters.dockerRegistryServiceConnection }}
+          imageRepository: ${{ parameters.imageRepository }}
+          containerRegistry: ${{ parameters.containerRegistry }}
+          imageTag: ${{ parameters.imageTag }}
+    - id: runAzurePipeline
+      name: Run Azure Pipeline
+      action: azure:pipeline:run
+      input:
+        organization: ${{ (parameters.repoUrl | parseRepoUrl)['organization'] }}
+        project: ${{ (parameters.repoUrl | parseRepoUrl)['project'] }}
+        pipelineId: ${{ steps.createAzurePipeline.output.pipelineId }}
   output:
     links:
       - title: Repository URL
