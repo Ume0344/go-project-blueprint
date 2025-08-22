@@ -83,3 +83,5 @@ spec:
     links:
       - title: Repository URL
         url: https://dev.azure.com/${{ (parameters.repoUrl | parseRepoUrl).organization }}/${{ (parameters.repoUrl | parseRepoUrl).project }}/_git/${{ (parameters.repoUrl | parseRepoUrl).repo }}
+      - title: Pipeline URL
+        url: ${{ steps.createAzurePipeline.output.pipelineUrl }}
