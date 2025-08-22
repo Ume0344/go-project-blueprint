@@ -48,6 +48,11 @@ spec:
         targetPath: ./sub-directory
         values:
           projectName: ${{ (parameters.repoUrl | parseRepoUrl).repo }}
+          goVersion: ${{ parameters.goVersion }}
+          dockerRegistryServiceConnection: ${{ parameters.dockerRegistryServiceConnection }}
+          imageRepository: ${{ parameters.imageRepository }}
+          containerRegistry: ${{ parameters.containerRegistry }}
+          imageTag: ${{ parameters.imageTag }}
     - id: createRepoAndInitProject
       name: Create Repo and Initialize Project
       action: publish:azure
@@ -74,12 +79,6 @@ spec:
         repositoryId: ${{ steps.createRepoAndInitProject.output.repositoryId }}
         repositoryName: ${{ (parameters.repoUrl | parseRepoUrl)['repo'] }}
         yamlPath: ./azure-pipelines.yaml
-        values:
-          goVersion: ${{ parameters.goVersion }}
-          dockerRegistryServiceConnection: ${{ parameters.dockerRegistryServiceConnection }}
-          imageRepository: ${{ parameters.imageRepository }}
-          containerRegistry: ${{ parameters.containerRegistry }}
-          imageTag: ${{ parameters.imageTag }}
   output:
     links:
       - title: Repository URL
