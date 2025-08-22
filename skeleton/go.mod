@@ -1,3 +1,3 @@
-module go-project
+module ${{ values.projectName }}
 
-go 1.22.1
+go ${{ values.goVersion }}

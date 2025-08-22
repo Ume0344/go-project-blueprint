@@ -3,11 +3,11 @@ trigger:
     include:
       - main
 variables:
-  dockerRegistryServiceConnection: 'a96aeffa-9057-402e-a369-a7811f495eb1'
-  imageRepository: 'umehabiba04/backstage2go'
-  containerRegistry: 'docker.io/umehabiba04'
+  dockerRegistryServiceConnection: ${{ values.dockerRegistryServiceConnection }}
+  imageRepository: ${{ values.imageRepository }}
+  containerRegistry: ${{ values.containerRegistry }}
   dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
-  tag: '$(Build.BuildId)'
+  tag: ${{ values.imageTag }}
   vmImageName: 'ubuntu-latest'
 pool:
   vmImage: $(vmImageName)
@@ -15,7 +15,7 @@ pool:
 steps:
   - task: GoTool@0
     inputs:
-      version: '1.22.1'
+      version: ${{ values.goVersion }}
     displayName: 'Install Go'
 
   - script: go build ./...
