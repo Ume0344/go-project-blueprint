@@ -69,6 +69,12 @@ spec:
         description: "Go project repo"
         gitAuthorName: Backstage Bot
         gitAuthorEmail: backstage-bot@zeiss.com
+    - id: register
+      name: Register
+      action: catalog:register
+      input:
+        repoContentsUrl: ${{ steps.createRepoAndInitProject.output.repoContentsUrl }}
+        catalogInfoPath: "/catalog-info.yaml"
     - id: debug
       name: Debug
       action: debug:log
@@ -85,6 +91,7 @@ spec:
         repositoryId: ${{ steps.createRepoAndInitProject.output.repositoryId }}
         repositoryName: ${{ (parameters.repoUrl | parseRepoUrl)['repo'] }}
         yamlPath: ./azure-pipelines.yaml
+    
   output:
     links:
       - title: Repository URL
