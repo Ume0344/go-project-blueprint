@@ -7,7 +7,7 @@ variables:
   imageRepository: ${{ values.imageRepository }}
   containerRegistry: ${{ values.containerRegistry }}
   dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
-  tag: ${{ values.imageTag }}
+  tag: ${{ values.projectName }}
   vmImageName: 'ubuntu-latest'
 pool:
   vmImage: $(vmImageName)

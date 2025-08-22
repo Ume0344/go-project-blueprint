@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Values.projectName }}
+  name: ${{ values.projectName }}
   labels:
-    app: {{ .Values.projectName }}
+    app: ${{ values.projectName }}
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: {{ .Values.projectName }}
+      app: ${{ values.projectName }}
   template:
     metadata:
       labels:
-        app: {{ .Values.projectName }}
+        app: ${{ values.projectName }}
     spec:
       containers:
-        - name: {{ .Values.projectName }}
-          image: webinar/{{ .Values.projectName }}:latest
+        - name: ${{ values.projectName }}
+          image: umehabiba04/backstage2go:${{ values.projectName }}
           ports:
             - containerPort: 8080
