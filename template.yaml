@@ -35,10 +35,6 @@ spec:
           title: Container Registry
           type: string
           description: The container registry URL.
-        imageTag:
-          title: Image Tag
-          type: string
-          description: The tag to use for the Docker image.
   steps:
     - id: fetch-skeleton
       name: Fetch Skeleton
