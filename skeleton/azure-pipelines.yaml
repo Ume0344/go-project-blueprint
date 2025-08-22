@@ -2,14 +2,20 @@ trigger:
   branches:
     include:
       - main
-
+variables:
+  dockerRegistryServiceConnection: 'a96aeffa-9057-402e-a369-a7811f495eb1'
+  imageRepository: 'umehabiba04/backstage2go'
+  containerRegistry: 'docker.io/umehabiba04'
+  dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
+  tag: '$(Build.BuildId)'
+  vmImageName: 'ubuntu-latest'
 pool:
-  vmImage: 'ubuntu-latest'
+  vmImage: $(vmImageName)
 
 steps:
   - task: GoTool@0
     inputs:
-      version: '1.24.1'
+      version: '1.22.1'
     displayName: 'Install Go'
 
   - script: go build ./...
@@ -17,3 +23,12 @@ steps:
 
   - script: go test ./...
     displayName: 'Run Tests'
+
+  - task: Docker@2
+    inputs:
+      containerRegistry: $(dockerRegistryServiceConnection)
+      repository: $(imageRepository)
+      command: 'buildAndPush'
+      Dockerfile: $(dockerfilePath)
+      tags: |
+          $(tag)

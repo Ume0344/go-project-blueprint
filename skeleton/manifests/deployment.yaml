@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.projectName }}
+  labels:
+    app: {{ .Values.projectName }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Values.projectName }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.projectName }}
+    spec:
+      containers:
+        - name: {{ .Values.projectName }}
+          image: webinar/{{ .Values.projectName }}:latest
+          ports:
+            - containerPort: 8080
