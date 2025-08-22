@@ -1,0 +1,8 @@
+site_name: ${{ values.projectName }}
+site_description: This is guide to get started with ${{ values.projectName }}
+
+nav:
+  - Introduction: project.md
+
+plugins:
+  - techdocs-core
