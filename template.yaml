@@ -4,6 +4,8 @@ metadata:
   name: go-project-template
   title: Go Project
   description: Create a new Go project with repo and Azure DevOps pipeline
+  annotations:
+    backstage.io/techdocs-ref: dir:.
 spec:
   owner: user:default/um-e.habiba
   type: service
@@ -94,7 +96,9 @@ spec:
     
   output:
     links:
-      - title: Repository URL
-        url: https://dev.azure.com/${{ (parameters.repoUrl | parseRepoUrl).organization }}/${{ (parameters.repoUrl | parseRepoUrl).project }}/_git/${{ (parameters.repoUrl | parseRepoUrl).repo }}
-      - title: Pipeline URL
-        url: ${{ steps.createAzurePipeline.output.pipelineUrl }}
+    - title: Pipeline URL
+      url: ${{ steps.createAzurePipeline.output.pipelineUrl }}
+
+    - title: Repository URL
+      url: https://dev.azure.com/${{ (parameters.repoUrl | parseRepoUrl).organization }}/${{ (parameters.repoUrl | parseRepoUrl).project }}/_git/${{ (parameters.repoUrl | parseRepoUrl).repo }}
+      
