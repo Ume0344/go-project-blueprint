@@ -2,7 +2,7 @@ site_name: Two Siblings - Mars and Earth
 site_description: Read more about the story of Mars and Earth
 
 nav:
-  - Introduction: project.md
+  - Introduction: index.md
 
 plugins:
   - techdocs-core
