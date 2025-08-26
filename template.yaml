@@ -17,7 +17,7 @@ spec:
         repoUrl:
           title: Repository Location
           type: string
-          ui:field: RepoUrlPicker
+          ui:field: RepoUrlPicker # UI components that are available in Backstage
           ui:options:
             allowedHosts:
               - dev.azure.com
@@ -29,14 +29,14 @@ spec:
           title: Docker Registry Service Connection
           type: string
           description: The service connection for the Docker registry.
-        imageRepository:
-          title: Image Repository
-          type: string
-          description: The repository name for the Docker image.
         containerRegistry:
           title: Container Registry
           type: string
           description: The container registry URL.
+        imageRepository:
+          title: Image Repository
+          type: string
+          description: The repository name for the Docker image.
   steps:
     - id: fetch-skeleton
       name: Fetch Skeleton
