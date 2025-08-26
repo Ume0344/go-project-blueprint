@@ -21,15 +21,6 @@ spec:
           ui:options:
             allowedHosts:
               - dev.azure.com
-        owner:
-          title: Owner
-          type: string
-          description: Owner of the service
-          ui:field: OwnerPicker
-          ui:widget: select
-          ui:options:
-            allowedKinds:
-              - Group
         goVersion:
           type: string
           description: Go version
@@ -55,7 +46,6 @@ spec:
         targetPath: ./sub-directory
         values:
           projectName: ${{ (parameters.repoUrl | parseRepoUrl).repo }}
-          owner: ${{ parameters.owner }}
           goVersion: ${{ parameters.goVersion }}
           dockerRegistryServiceConnection: ${{ parameters.dockerRegistryServiceConnection }}
           imageRepository: ${{ parameters.imageRepository }}
