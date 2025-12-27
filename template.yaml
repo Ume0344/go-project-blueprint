@@ -51,6 +51,30 @@ spec:
           imageRepository: ${{ parameters.imageRepository }}
           containerRegistry: ${{ parameters.containerRegistry }}
           imageTag: ${{ parameters.imageTag }}
+    - id: renameFiles
+      name: Rename files
+      action: fs:rename
+      input:
+        files:
+          - from: ./sub-directory/main.go.tmpl
+            to: ./sub-directory/main.go
+            overwrite: false
+          - from: ./sub-directory/go.mod.tmpl
+            to: ./sub-directory/go.mod
+            overwrite: false
+          - from: ./sub-directory/Dockerfile.tmpl
+            to: ./sub-directory/Dockerfile
+            overwrite: false
+          - from: ./sub-directory/azure-pipelines.yaml.tmpl
+            to: ./sub-directory/azure-pipelines.yaml
+            overwrite: false
+          - from: ./sub-directory/manifests/deployment.yaml.tmpl
+            to: ./sub-directory/manifests/deployment.yaml
+            overwrite: false
+          - from: ./sub-directory/manifests/service.yaml.tmpl
+            to: ./sub-directory/manifests/service.yaml
+            overwrite: false
+      
     - id: createRepoAndInitProject
       name: Create Repo and Initialize Project
       action: publish:azure
